@@ -10,7 +10,7 @@ import androidx.annotation.RequiresApi;
  * Created by Kwabena Berko on 5/7/2018.
  */
 
-public class Article implements Parcelable {
+public class Article implements Parcelable{
     private Source source;
     private String author;
     private String title;
@@ -20,6 +20,7 @@ public class Article implements Parcelable {
     private String publishedAt;
 
     protected Article(Parcel in) {
+        source = in.readParcelable(Source.class.getClassLoader());
         author = in.readString();
         title = in.readString();
         description = in.readString();
@@ -28,10 +29,9 @@ public class Article implements Parcelable {
         publishedAt = in.readString();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedObject(source, flags);
+        dest.writeParcelable(source, flags);
         dest.writeString(author);
         dest.writeString(title);
         dest.writeString(description);

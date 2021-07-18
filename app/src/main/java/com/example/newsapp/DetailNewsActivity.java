@@ -51,8 +51,10 @@ public class DetailNewsActivity extends AppCompatActivity {
                 .into(detailNewsIV);
         detailTitleTV.setText(article.getTitle());
         authorTV.setText(article.getAuthor());
-        detailPublisherTV.setText(article.getSource().getName());
+        System.out.println("arr" + article.getSource().getId());
+        detailPublisherTV.setText(article.getSource().getId());
         detailDateTV.setText(article.getPublishedAt());
         descTV.setText(article.getDescription());
+
     }
 }
