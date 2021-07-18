@@ -9,15 +9,6 @@
     <include layout="@layout/header"/>
     <include layout="@layout/footer"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newsRV"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_card"
-        android:layout_marginBottom="70dp"
-        android:layout_marginTop="70dp"/>
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

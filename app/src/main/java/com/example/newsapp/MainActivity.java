@@ -3,26 +3,17 @@ package com.example.newsapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import com.example.newsapp.newsapi.NewsApiClient;
-import com.example.newsapp.newsapi.models.Article;
-import com.example.newsapp.newsapi.models.ArticleAdapter;
-import com.example.newsapp.newsapi.models.request.EverythingRequest;
-import com.example.newsapp.newsapi.models.request.TopHeadlinesRequest;
-import com.example.newsapp.newsapi.models.response.ArticleResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
-    private List<Article> articleList;
-    private RecyclerView newsRV;
-    private ArticleAdapter articleAdapter;
+    private static final int homeFragment = 1;
+    private static final int bookmarksFragment = 2;
+    private int currentFragment;
 
     private ImageButton homeBtn;
     private ImageButton bookmarkBtn;
@@ -34,59 +25,46 @@ public class MainActivity extends AppCompatActivity {
 
         homeBtn = findViewById(R.id.homeBtn);
         bookmarkBtn = findViewById(R.id.bookmarkBtn);
-        newsRV = findViewById(R.id.newsRV);
-
-        List<Article> articleList = new ArrayList<>();
-
-        NewsApiClient newsApiClient = new NewsApiClient("45b104ac780141b6b74bc9fdc536e402");
-
-        getTopHeadLines(newsApiClient);
 
 
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.container, new HomeFragment(getApplicationContext()));
+        ft.commit();
+        currentFragment = homeFragment;
     }
 
-    private void getEverything(NewsApiClient newsApiClient) {
-        newsApiClient.getEverything(
-                new EverythingRequest.Builder()
-                        .q("trump")
-                        .build(),
-                new NewsApiClient.ArticlesResponseCallback() {
-                    @Override
-                    public void onSuccess(ArticleResponse response) {
-                        articleList = response.getArticles();
-                        System.out.println("aarr: " + articleList.get(0).getSource());
-                    }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        System.out.println("err: " + throwable.getMessage());
-                    }
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentFragment != homeFragment) {
+                    currentFragment = homeFragment;
+
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.container, new HomeFragment(getApplicationContext()));
+                    ft.commit();
                 }
-        );
-    }
 
-    private void getTopHeadLines(NewsApiClient newsApiClient) {
-        newsApiClient.getTopHeadlines(
-                new TopHeadlinesRequest.Builder()
-                        .country("id")
-                        .build(),
-                new NewsApiClient.ArticlesResponseCallback() {
-                    @Override
-                    public void onSuccess(ArticleResponse response) {
-                        articleList = response.getArticles();
-                        articleAdapter = new ArticleAdapter(articleList, getApplicationContext());
-                        newsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        newsRV.setAdapter(articleAdapter);
-                        System.out.println("aarr: " + articleList.get(0).getSource().getName());
-                    }
+            }
+        });
 
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        System.out.println("err: " + throwable.getMessage());
-                    }
+        bookmarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentFragment != bookmarksFragment) {
+                    currentFragment = bookmarksFragment;
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.container, new BookmarksFragment(getApplicationContext()));
+                    ft.commit();
                 }
-        );
+            }
+        });
     }
-
 
 }
