@@ -1,10 +1,16 @@
 package com.example.newsapp.newsapi.models;
 
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.RequiresApi;
+
 /**
  * Created by Kwabena Berko on 5/7/2018.
  */
 
-public class Article {
+public class Article implements Parcelable {
     private Source source;
     private String author;
     private String title;
@@ -12,6 +18,44 @@ public class Article {
     private String url;
     private String urlToImage;
     private String publishedAt;
+
+    protected Article(Parcel in) {
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedObject(source, flags);
+        dest.writeString(author);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(url);
+        dest.writeString(urlToImage);
+        dest.writeString(publishedAt);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
 
     public Source getSource() {
         return source;

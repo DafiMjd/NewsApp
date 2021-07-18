@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(ArticleResponse response) {
                         articleList = response.getArticles();
-                        articleAdapter = new ArticleAdapter(articleList);
+                        articleAdapter = new ArticleAdapter(articleList, getApplicationContext());
                         newsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         newsRV.setAdapter(articleAdapter);
                         System.out.println("aarr: " + articleList.get(0).getSource().getName());
