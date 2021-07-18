@@ -57,6 +57,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailNewsActivity.class);
                 intent.putExtra("article", article);
+                intent.putExtra("source", article.getSource());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

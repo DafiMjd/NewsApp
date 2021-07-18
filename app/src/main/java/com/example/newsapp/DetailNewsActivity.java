@@ -9,12 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newsapp.newsapi.models.Article;
+import com.example.newsapp.newsapi.models.Source;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class DetailNewsActivity extends AppCompatActivity {
     private Article article;
+    private Source source;
     private Intent intent;
     private ImageView detailNewsIV;
     private TextView detailTitleTV, authorTV, detailPublisherTV, detailDateTV, descTV;
@@ -26,6 +28,7 @@ public class DetailNewsActivity extends AppCompatActivity {
 
         intent = getIntent();
         article = intent.getParcelableExtra("article");
+        source = intent.getParcelableExtra("source");
 
         layoutInflater();
         fillLayout();
@@ -51,8 +54,7 @@ public class DetailNewsActivity extends AppCompatActivity {
                 .into(detailNewsIV);
         detailTitleTV.setText(article.getTitle());
         authorTV.setText(article.getAuthor());
-        System.out.println("arr" + article.getSource().getId());
-        detailPublisherTV.setText(article.getSource().getId());
+        detailPublisherTV.setText(source.getName());
         detailDateTV.setText(article.getPublishedAt());
         descTV.setText(article.getDescription());
 

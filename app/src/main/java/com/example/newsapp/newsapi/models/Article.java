@@ -20,7 +20,6 @@ public class Article implements Parcelable{
     private String publishedAt;
 
     protected Article(Parcel in) {
-        source = in.readParcelable(Source.class.getClassLoader());
         author = in.readString();
         title = in.readString();
         description = in.readString();
@@ -31,7 +30,6 @@ public class Article implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(source, flags);
         dest.writeString(author);
         dest.writeString(title);
         dest.writeString(description);
