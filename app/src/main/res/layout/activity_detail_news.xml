@@ -104,14 +104,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black" />
 
-            <TextView
-                android:id="@+id/readMoreTV"
+            <Button
+                android:id="@+id/readMoreBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/descTV"
-                android:layout_marginTop="10dp"
                 android:text="Read More"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:layout_below="@+id/descTV"/>
+
 
 
         </RelativeLayout>
