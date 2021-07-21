@@ -33,8 +33,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="3dp"
-                android:layout_marginBottom="3dp"
-                android:background="@color/header_color">
+                android:layout_marginBottom="3dp">
 
                 <TextView
                     android:id="@+id/titleTV"
@@ -49,46 +48,32 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="25dp">
-
-                    <ImageView
-                        android:id="@+id/publisherIV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:src="@drawable/ic_publisher" />
+                    android:layout_alignParentBottom="true">
 
                     <TextView
                         android:id="@+id/publisherTV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="3dp"
-                        android:layout_toEndOf="@+id/publisherIV"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true">
-
-                    <ImageView
-                        android:id="@+id/dateIV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:src="@drawable/ic_date" />
+                        android:text="aaaa"/>
 
                     <TextView
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/del"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
+                        android:layout_toEndOf="@+id/publisherTV"
+                        android:text="|"/>
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/dateTV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginTop="3dp"
-                        android:layout_toEndOf="@+id/dateIV" />
+                        android:layout_toEndOf="@+id/del"
+                        android:text="asdfadsf"/>
                 </RelativeLayout>
 
 

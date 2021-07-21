@@ -50,67 +50,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        homeBtn = findViewById(R.id.homeBtn);
-        bookmarkBtn = findViewById(R.id.bookmarkBtn);
         newsRV = findViewById(R.id.newsRV);
-        status = findViewById(R.id.status);
-
-        searchBar = findViewById(R.id.searchNews);
-        searchBtn = findViewById(R.id.searchBtn);
 
         searchKey = "";
 
         newsApiClient = new NewsApiClient("45b104ac780141b6b74bc9fdc536e402");
-        getEverything(newsApiClient);
+        getTopHeadLines(newsApiClient);
 
 
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.replace(R.id.container, new HomeFragment(getApplicationContext()));
-//        ft.commit();
-//        currentFragment = homeFragment;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchKey = searchBar.getText().toString();
-                getTopHeadLines(newsApiClient);
-            }
-        });
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentFragment != homeFragment) {
-                    currentFragment = homeFragment;
-
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.container, new HomeFragment(getApplicationContext()));
-                    ft.commit();
-                }
-
-            }
-        });
-
-        bookmarkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentFragment != bookmarksFragment) {
-                    currentFragment = bookmarksFragment;
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.container, new BookmarksFragment(getApplicationContext()));
-                    ft.commit();
-                }
-            }
-        });
-    }
 
 
     private void getEverything(NewsApiClient newsApiClient) {
@@ -134,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getTopHeadLines(NewsApiClient newsApiClient) {
-        status.setImageResource(R.drawable.ic_loading);
         newsApiClient.getTopHeadlines(
                 new TopHeadlinesRequest.Builder()
                         .q(searchKey)
@@ -143,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 new NewsApiClient.ArticlesResponseCallback() {
                     @Override
                     public void onSuccess(ArticleResponse response) {
-                        status.setImageResource(0);
                         articleList = response.getArticles();
                         articleAdapter = new ArticleAdapter(articleList, getApplicationContext());
                         newsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -154,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        status.setImageResource(R.drawable.ic_error);
                         System.out.println("err: " + throwable.getMessage());
                     }
                 }

@@ -1,14 +1,8 @@
 package com.example.newsapp;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +31,6 @@ public class DetailNewsActivity extends AppCompatActivity {
         intent = getIntent();
         article = intent.getParcelableExtra("article");
         source = intent.getParcelableExtra("source");
-        readMoreBtn = findViewById(R.id.readMoreBtn);
 
         layoutInflater();
         fillLayout();
@@ -45,39 +38,6 @@ public class DetailNewsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        readMoreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
-    }
-
-    public void showDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        webView = new WebView(this);
-        webView.loadUrl(article.getUrl());
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
-        alert.setView(webView);
-        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();
-    }
 
     private void layoutInflater() {
         detailNewsIV = findViewById(R.id.detailNewsIV);
